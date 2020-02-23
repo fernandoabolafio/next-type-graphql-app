@@ -1,30 +1,13 @@
 import "reflect-metadata";
-import {
-  buildSchema,
-  Field,
-  ObjectType,
-  ID,
-  Resolver,
-  Query,
-  Authorized,
-  Mutation,
-  Args,
-  Ctx,
-  Arg,
-  InputType
-} from "type-graphql";
-import { graphql } from "graphql";
+import { Field, ObjectType, ID, Resolver, Query, Arg } from "type-graphql";
 
 @ObjectType("recipe")
-class Recipe {
+export class Recipe {
   @Field(type => ID)
   id: string;
 
   @Field(type => String)
   title: string;
-
-  //   @Field({ nullable: true })
-  //   description?: string;
 
   @Field(type => Date)
   creationDate: Date;
