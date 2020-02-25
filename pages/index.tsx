@@ -37,7 +37,7 @@ const Fetcher = (props: FetcherProps) => {
     <span>
       {loading
         ? "loading"
-        : data.recipes
+        : data && data.recipes
         ? data.recipes.length + " recipes"
         : "idle"}
     </span>
