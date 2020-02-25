@@ -1,22 +1,56 @@
 import Head from "next/head";
-import fetch from "node-fetch";
 import React from "react";
-import ApolloClient, { gql } from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo";
 import Layout, { LayoutColumn } from "@kiwicom/orbit-components/lib/Layout";
 import Heading from "@kiwicom/orbit-components/lib/Heading";
+import { Recipe } from "../api/Recipe";
 
-const client = new ApolloClient({
-  uri: "http://127.0.0.1:3000/api/graphql",
-  fetch: fetch
-});
+interface HomeProps {
+  recipe: Recipe;
+}
 
-const Home = ({ recipe }) => (
-  <ApolloProvider client={client}>
+interface FetcherProps extends HomeProps {}
+
+const RECIPES_QUERY = gql`
+  {
+    recipes {
+      id
+      title
+    }
+  }
+`;
+
+interface RecipesData {
+  recipes: Recipe[];
+}
+
+const Fetcher = (props: FetcherProps) => {
+  const { loading, error, data } = useQuery<RecipesData>(RECIPES_QUERY, {
+    pollInterval: 3000,
+    ssr: false
+  });
+  // console.log(loading);
+  // console.log(data);
+  console.log(error);
+  return (
+    <span>
+      {loading
+        ? "loading"
+        : data.recipes
+        ? data.recipes.length + " recipes"
+        : "idle"}
+    </span>
+  );
+};
+
+const Home = ({ recipe }: HomeProps) => (
+  <>
     <Layout type="MMB">
       <Heading>{recipe && recipe.title}</Heading>
       <LayoutColumn>This is the main section.</LayoutColumn>
     </Layout>
+    <Fetcher recipe={recipe} />
 
     <style jsx global>{`
       html,
@@ -31,10 +65,11 @@ const Home = ({ recipe }) => (
         box-sizing: border-box;
       }
     `}</style>
-  </ApolloProvider>
+  </>
 );
 
-Home.getInitialProps = async () => {
+Home.getInitialProps = async ctx => {
+  const client = ctx.apolloClient;
   try {
     const result = await client.query({
       query: gql`
@@ -50,6 +85,7 @@ Home.getInitialProps = async () => {
     console.log("got error", e);
   }
   return {};
+  // return {};
 };
 
 export default Home;

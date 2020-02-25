@@ -1,14 +1,22 @@
-// import Head from "next/head";
-// import fetch from "node-fetch";
-// import React from "react";
-// import ApolloClient, { gql } from "apollo-boost";
-// import { ApolloProvider } from "react-apollo";
-// import { Layout } from "antd";
+import React from "react";
 import App from "next/app";
+import { ApolloProvider } from "@apollo/react-hooks";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+import withData from "../src/packages/apollo/apollo-client";
+
+class MyApp extends App {
+  render() {
+    const { Component, pageProps, apollo } = this.props;
+    return (
+      <ApolloProvider client={apollo}>
+        <Component {...pageProps} />
+      </ApolloProvider>
+    );
+  }
 }
+
+// Wraps all components in the tree with the data provider
+export default withData(MyApp);
 
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to
@@ -22,4 +30,4 @@ function MyApp({ Component, pageProps }) {
 //   return { ...appProps };
 // };
 
-export default MyApp;
+// export default MyApp;
