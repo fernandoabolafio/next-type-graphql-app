@@ -80,7 +80,7 @@ Home.getInitialProps = async ctx => {
         }
       `
     });
-    return result.data;
+    return result.data || {};
   } catch (e) {
     console.log("got error", e);
   }
