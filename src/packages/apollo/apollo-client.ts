@@ -5,7 +5,7 @@ import { createHttpLink } from "apollo-link-http";
 import fetch from "isomorphic-fetch";
 
 // Update the GraphQL endpoint to any instance of GraphQL that you like
-const GRAPHQL_URL = "http://127.0.0.1:3000/api/graphql";
+const GRAPHQL_URL = "http://localhost:3000/api/graphql";
 
 const link = createHttpLink({
   fetch, // Switches between unfetch & node-fetch for client & server.
@@ -17,11 +17,16 @@ const link = createHttpLink({
 export default withApollo(
   // You can get headers and ctx (context) from the callback params
   // e.g. ({ headers, ctx, initialState })
-  ({ initialState }) =>
-    new ApolloClient({
-      link: link,
+  ({ initialState, ctx, headers }) => {
+    console.log(headers);
+    return new ApolloClient({
+      link: createHttpLink({
+        fetch, // Switches between unfetch & node-fetch for client & server.
+        uri: "http://localhost:3000/api/graphql"
+      }),
       cache: new InMemoryCache()
         //  rehydrate the cache using the initial data passed from the server:
         .restore(initialState || {})
-    })
+    });
+  }
 );
