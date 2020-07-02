@@ -11,8 +11,6 @@ import neo4j, { Session } from "neo4j-driver";
 
 let app = null;
 
-console.log({ "ihuuul "});
-
 const driver = neo4j.driver(
   "bolt://localhost:7687",
   neo4j.auth.basic("neo4j", "password")
@@ -30,7 +28,7 @@ async function init() {
     const result = await session.run(
       "MATCH (app:App { name: $name }) RETURN app",
       {
-        name: APP_NAME
+        name: APP_NAME,
       }
     );
     if (result.records[0]) {
@@ -44,7 +42,7 @@ async function init() {
       description:
         "This is a new description asidoisnaoindo asoin oiand onaso noasn oans",
       site: "https://epertin.com",
-      redirectUri: "https://epertin.com"
+      redirectUri: "https://epertin.com",
     });
 
     console.log("got new app", newApp);
@@ -83,21 +81,21 @@ class Database extends DataSource {
 }
 
 const schema = buildSchemaSync({
-  resolvers: [RecipeResolver, UserResolver]
+  resolvers: [RecipeResolver, UserResolver],
 });
 
 const server = new ApolloServer({
   schema,
   dataSources: () => ({
     database: new Database(session),
-    paymentService: new WirecardClient()
-  })
+    paymentService: new WirecardClient(),
+  }),
 });
 
 export const config = {
   api: {
-    bodyParser: false
-  }
+    bodyParser: false,
+  },
 };
 
 const handler = async (req, res) => {
