@@ -10,6 +10,7 @@ import WirecardClient from "../../backend/wirecard/client";
 import neo4j, { Session } from "neo4j-driver";
 
 let app = null;
+console.log("ihaa");
 
 const driver = neo4j.driver(
   "bolt://localhost:7687",

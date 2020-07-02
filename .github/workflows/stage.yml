@@ -10,7 +10,7 @@ jobs:
   tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: "0"
