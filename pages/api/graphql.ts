@@ -11,6 +11,8 @@ import neo4j, { Session } from "neo4j-driver";
 
 let app = null;
 
+console.log({ "ihuuul "});
+
 const driver = neo4j.driver(
   "bolt://localhost:7687",
   neo4j.auth.basic("neo4j", "password")
