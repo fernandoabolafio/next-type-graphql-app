@@ -32,7 +32,7 @@ async function init() {
       }
     );
     if (result.records[0]) {
-      app = result.records[0].get(0);
+      app = result.records[0].get(0).properties;
       return;
     }
 
@@ -100,6 +100,7 @@ export const config = {
 
 const handler = async (req, res) => {
   await init();
+  console.log(app);
   return server.createHandler({ path: "/api/graphql" })(req, res);
 };
 

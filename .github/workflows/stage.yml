@@ -1,0 +1,19 @@
+name: Stage Actions
+on:
+  push:
+    branches:
+      - master
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: "0"
+      - name: Bump version and push tag
+        uses: mathieudutour/github-tag-action@v4.5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: patch
+          release_branches: master
+          tag_prefix: ""
