@@ -16,7 +16,7 @@
     "apollo-datasource": "^0.7.0",
     "apollo-datasource-rest": "^0.8.0",
     "apollo-link-http": "^1.5.16",
-    "apollo-server": "^2.10.1",
+    "apollo-server": "^2.14.2",
     "apollo-server-micro": "^2.10.1",
     "graphql": "^14.6.0",
     "isomorphic-fetch": "^2.2.1",
