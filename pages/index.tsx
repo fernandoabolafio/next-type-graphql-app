@@ -4,7 +4,8 @@ import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo";
 import Layout, { LayoutColumn } from "@kiwicom/orbit-components/lib/Layout";
 import Heading from "@kiwicom/orbit-components/lib/Heading";
-import { Recipe } from "../api/Recipe";
+import { Recipe } from "../backend/Recipe";
+import NewUser from "../src/packages/user/New";
 
 interface HomeProps {
   recipe: Recipe;
@@ -27,12 +28,8 @@ interface RecipesData {
 
 const Fetcher = (props: FetcherProps) => {
   const { loading, error, data } = useQuery<RecipesData>(RECIPES_QUERY, {
-    pollInterval: 3000,
     ssr: false
   });
-  // console.log(loading);
-  // console.log(data);
-  console.log(error);
   return (
     <span>
       {loading
@@ -47,10 +44,8 @@ const Fetcher = (props: FetcherProps) => {
 const Home = ({ recipe }: HomeProps) => (
   <>
     <Layout type="MMB">
-      <Heading>{recipe && recipe.title}</Heading>
-      <LayoutColumn>This is the main section.</LayoutColumn>
+      <NewUser />
     </Layout>
-    <Fetcher recipe={recipe} />
 
     <style jsx global>{`
       html,

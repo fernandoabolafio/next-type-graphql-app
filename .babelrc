@@ -5,7 +5,8 @@
       {
         "class-properties": {
           "loose": true
-        }
+        },
+        "preset-env": { "targets": { "node": true } }
       }
     ],
     "@babel/preset-typescript"
