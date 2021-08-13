@@ -21,7 +21,7 @@
     "graphql": "^14.6.0",
     "isomorphic-fetch": "^2.2.1",
     "neo4j-driver": "^4.0.2",
-    "next": "9.2.2",
+    "next": "11.1.0",
     "next-with-apollo": "^5.0.0",
     "node-fetch": "^2.6.0",
     "react": "16.12.0",
